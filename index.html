@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Утка в пальто</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.5;
+      color: #2b2a26;
+      background: #f6f1e7;
+    }
+    main { max-width: 40rem; margin: 0 auto; padding: 0 1.25rem 3rem; }
+    .hero { padding: 3rem 0 2rem; display: flex; flex-direction: column; align-items: flex-start; }
+    h1 { margin: 0 0 0.5rem; font-size: clamp(2.5rem, 10vw, 4rem); line-height: 1.1; }
+    .offer { margin: 0 0 1.5rem; font-size: 1.25rem; }
+    button {
+      padding: 0.75rem 1.5rem;
+      font: inherit;
+      color: #f6f1e7;
+      background: #2f4a3c;
+      border: 0;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    button:hover { background: #233a2e; }
+    h2 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+    .about p { margin: 0; }
+    #recommendation { margin-top: 2rem; padding: 1rem 1.25rem; background: #fffdf8; border-left: 4px solid #2f4a3c; }
+    #recommendation p { margin: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Утка в пальто</h1>
+      <p class="offer">Тёплые пальто на любую погоду: нажмите кнопку, и мы подскажем образ.</p>
+      <button id="pick-look" type="button">Подобрать образ</button>
+    </section>
+
+    <section class="about">
+      <h2>Почему пальто</h2>
+      <p>Хорошее пальто выручает и в дождь, и в ветер, и в обычный будний день. Поэтому мы не перегружаем выбором, а предлагаем готовое решение.</p>
+    </section>
+
+    <section id="recommendation" aria-live="polite" hidden>
+      <p id="recommendation-text"></p>
+    </section>
+  </main>
+
+  <script>
+    const slot = document.getElementById("recommendation");
+    const text = document.getElementById("recommendation-text");
+
+    const looks = [
+      "Для дождливого дня: тёмно-зелёное пальто с капюшоном, высокие сапоги и большой зонт.",
+      "Для ясного прохладного дня: песочное пальто прямого кроя, лёгкий шарф и кожаные ботинки."
+    ];
+    let current = 1;
+
+    document.getElementById("pick-look").addEventListener("click", () => {
+      current = (current + 1) % looks.length;
+      text.textContent = looks[current];
+      slot.hidden = false;
+      slot.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>
